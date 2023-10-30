@@ -20,7 +20,7 @@ public class SeleniumTest {
 	}
 
 	@AfterTest
-	public void tearDown() {
+	public void shutDown() {
 		driver.quit();
 	}
 
