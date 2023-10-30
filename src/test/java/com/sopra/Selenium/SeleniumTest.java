@@ -2,9 +2,7 @@ package com.sopra.Selenium;
 
 import java.util.List;
 
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,8 +11,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class SeleniumTest {
-	private WebDriver driver;	
-	JavascriptExecutor js;
+	private WebDriver driver;
 
 	@BeforeTest
 	public void setUp() {
@@ -27,11 +24,8 @@ public class SeleniumTest {
 		driver.quit();
 	}
 
-	@Test
-	public void test1() throws InterruptedException {
-
-		Thread.sleep(1000);
-
+	@Test(priority = 0)
+	public void login() throws Exception {
 		WebElement username = driver.findElement(By.id("Email"));
 		WebElement password = driver.findElement(By.id("Password"));
 		WebElement login = driver.findElement(By.className("login-button"));
@@ -45,7 +39,10 @@ public class SeleniumTest {
 			System.out.println("----------Logged In Succesfuly--------------------");
 		else
 			System.out.println("----------Login Problem--------------------");
-		
+	}
+
+	@Test(priority = 1)
+	public void test1() throws Exception {
 		List<WebElement> cardTitles = driver.findElements(By.xpath("//*[@class='card-title']"));
 
 		System.out.println("card count: " + cardTitles.size());
@@ -55,11 +52,14 @@ public class SeleniumTest {
 			System.out.println("***** Card Title " + i + " ***** " + title);
 			i++;
 		}
+	}
+
+	@Test(priority = 2)
+	public void logout() throws Exception {
 		WebElement logout = driver.findElement(By.linkText("Logout"));
 		logout.click();
 		System.out.println("----------Logout--------------------");
-		
-	}
 
+	}
 
 }
