@@ -33,7 +33,7 @@ public class SeleniumTest {
 		password.clear();
 		username.sendKeys("admin@yourstore.com");
 		password.sendKeys("admin");
-		System.out.println("----------Login--------------------");
+		System.out.println("---------- Login --------------------");
 		login.click();
 		if (driver.getCurrentUrl().contains("https://admin-demo.nopcommerce.com/admin/"))
 			System.out.println("----------Logged In Succesfuly--------------------");
@@ -55,10 +55,10 @@ public class SeleniumTest {
 	}
 
 	@Test(priority = 2)
-	public void logout() throws Exception {
+	public void logOut() throws Exception {
 		WebElement logout = driver.findElement(By.linkText("Logout"));
 		logout.click();
-		System.out.println("----------Logout--------------------");
+		System.out.println("---------- Logout --------------------");
 
 	}
 
