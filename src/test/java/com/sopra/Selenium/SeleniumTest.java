@@ -1,55 +1,65 @@
 package com.sopra.Selenium;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class SeleniumTest {
-	private WebDriver driver;
-	private Map<String, Object> vars;
+	private WebDriver driver;	
 	JavascriptExecutor js;
 
-	@Before
+	@BeforeTest
 	public void setUp() {
 		driver = new ChromeDriver();
 		js = (JavascriptExecutor) driver;
-		vars = new HashMap<String, Object>();
 	}
 
-	@After
+	@AfterTest
 	public void tearDown() {
 		driver.quit();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void test1() throws InterruptedException {
 
 		Thread.sleep(1000);
 
-		driver.get("https://www.amazon.es");
-		driver.manage().window().setSize(new Dimension(1296, 696));
-//		driver.findElement(By.id("twotabsearchtextbox")).click();
-//		driver.findElement(By.id("twotabsearchtextbox")).sendKeys("nint");
-//		driver.findElement(By.cssSelector("div:nth-child(1) > .s-suggestion-container > .s-suggestion")).click();
-		Thread.sleep(1000);
-//		assertThat(driver.getTitle(), is("Amazon.es : nintendo switch"));
-//		{
-//			List<WebElement> elements = driver.findElements(By.id("a-autoid-0-announce"));
-//			assert (elements.size() > 0);
-//		}
+		WebElement username = driver.findElement(By.id("Email"));
+		WebElement password = driver.findElement(By.id("Password"));
+		WebElement login = driver.findElement(By.className("login-button"));
+		username.clear();
+		password.clear();
+		username.sendKeys("admin@yourstore.com");
+		password.sendKeys("admin");
+		System.out.println("----------Login--------------------");
+		login.click();
+		if (driver.getCurrentUrl().contains("https://admin-demo.nopcommerce.com/admin/"))
+			System.out.println("----------Logged In Succesfuly--------------------");
+		else
+			System.out.println("----------Login Problem--------------------");
+		
+		List<WebElement> cardTitles = driver.findElements(By.xpath("//*[@class='card-title']"));
+
+		System.out.println("card count: " + cardTitles.size());
+		int i = 1;
+		for (WebElement cardTitle : cardTitles) {
+			String title = cardTitle.getText();
+			System.out.println("***** Card Title " + i + " ***** " + title);
+			i++;
+		}
+		WebElement logout = driver.findElement(By.linkText("Logout"));
+		logout.click();
+		System.out.println("----------Logout--------------------");
+		
 	}
+
+
 }
