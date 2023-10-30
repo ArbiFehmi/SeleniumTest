@@ -56,7 +56,7 @@ public class SeleniumTest {
 
 	@Test(priority = 2)
 	public void logOut() throws Exception {
-		WebElement logout = driver.findElement(By.linkText("Logout"));
+		WebElement logout = driver.findElement(By.xpath("//ul[@class='navbar-nav ml-auto pl-2']//li[@class='nav-item']//a[@class='nav-link']"));
 		logout.click();
 		System.out.println("---------- Logout --------------------");
 
