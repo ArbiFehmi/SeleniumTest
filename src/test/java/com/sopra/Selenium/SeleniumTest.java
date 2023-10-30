@@ -19,7 +19,7 @@ public class SeleniumTest {
 	@BeforeTest
 	public void setUp() {
 		driver = new ChromeDriver();
-		js = (JavascriptExecutor) driver;
+		driver.get("https://admin-demo.nopcommerce.com/admin/");
 	}
 
 	@AfterTest
